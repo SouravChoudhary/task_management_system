@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"task_management_system/config"
 	"task_management_system/internal/handler"
 	"task_management_system/internal/repository"
 	"task_management_system/internal/service"
@@ -12,9 +13,14 @@ import (
 
 func main() {
 
-	postgresConn, err := db.InitPostgres()
+	cfg, err := config.LoadConfig(".")
 	if err != nil {
-		log.Fatalf("Unable to start service due to DB error: %v", err)
+		log.Fatalf("Failed to load config.yaml: %v", err)
+	}
+
+	postgresConn, err := db.InitPostgres(&cfg.DB)
+	if err != nil {
+		log.Fatalf("Unable to start service due to config error: %v", err)
 	}
 
 	taskRepo := repository.NewTaskRepository(postgresConn)

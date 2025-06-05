@@ -32,8 +32,11 @@ func (r *taskRepository) GetByID(ctx context.Context, id string) (model.Task, er
 }
 
 func (r *taskRepository) List(ctx context.Context, status string, limit, offset int) ([]model.Task, error) {
-	var rows *sql.Rows
-	var err error
+	var (
+		rows *sql.Rows
+		err  error
+	)
+
 	if status != "" {
 		rows, err = r.db.QueryContext(ctx, "SELECT id, title, status, created_at FROM tasks WHERE status=$1 LIMIT $2 OFFSET $3", status, limit, offset)
 	} else {
