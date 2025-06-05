@@ -9,3 +9,5 @@ This document provides detailed API specifications for the Task Management micro
 1. Open [https://editor.swagger.io](https://editor.swagger.io) in your browser.
 2. Copy & paste your `swagger.yaml` available in root directory.
 
+## Postman collection attached in docs directory
+
