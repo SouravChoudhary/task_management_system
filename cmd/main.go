@@ -1,7 +1,9 @@
 package main
 
 import (
+	"database/sql"
 	"log"
+	"os"
 	"task_management_system/config"
 	"task_management_system/internal/handler"
 	"task_management_system/internal/repository"
@@ -23,6 +25,11 @@ func main() {
 		log.Fatalf("Unable to start service due to config error: %v", err)
 	}
 
+	err = RunMigrations(postgresConn, "./pkg/db/schema.sql")
+	if err != nil {
+		log.Fatalf("Failed to run migrations: %v", err)
+	}
+
 	taskRepo := repository.NewTaskRepository(postgresConn)
 	taskService := service.NewTaskService(taskRepo)
 	taskHandler := handler.NewTaskHandler(taskService)
@@ -32,4 +39,17 @@ func main() {
 	taskHandler.RegisterRoutes(router)
 
 	router.Run(":8080")
+}
+
+func RunMigrations(db *sql.DB, path string) error {
+	sqlBytes, err := os.ReadFile("schema.sql")
+	if err != nil {
+		log.Fatalf("Failed to run migrations: %v", err)
+	}
+
+	_, err = db.Exec(string(sqlBytes))
+	if err != nil {
+		log.Fatalf("Failed to execute schema.sql: %v", err)
+	}
+	return nil
 }

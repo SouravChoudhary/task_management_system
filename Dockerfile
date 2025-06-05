@@ -1,5 +1,5 @@
-FROM golang:1.22-alpine AS builder
 # Stage 1: Build the Go binary
+FROM golang:1.22-alpine AS builder
 
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 
@@ -19,11 +19,12 @@ FROM alpine:latest
 
 RUN apk --no-cache add ca-certificates
 
-WORKDIR /root/
+WORKDIR /app
 
+# Copy binary, config, and schema
 COPY --from=builder /app/task-service .
-
-COPY config/config.yaml ./config.yaml
+COPY --from=builder /app/config/config.yaml ./config.yaml
+COPY --from=builder /app/pkg/db/schema.sql ./schema.sql
 
 EXPOSE 8080
 

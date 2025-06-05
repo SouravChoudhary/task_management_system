@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "5af64f51-edc7-4ff0-a70f-093d3d9eab59",
+		"name": "tms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9819197"
+	},
+	"item": [
+		{
+			"name": "Create-Task",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "ListTask",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/tasks?page=1&limit=10&status=Pending",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "status",
+							"value": "Pending"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetById",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/tasks/4555533f-e8ac-47f1-a248-5b1d59de94e8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tasks",
+						"4555533f-e8ac-47f1-a248-5b1d59de94e8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateByID",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"string\",\r\n  \"status\": \"Pending\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/tasks/4555533f-e8ac-47f1-a248-5b1d59de94e8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tasks",
+						"4555533f-e8ac-47f1-a248-5b1d59de94e8"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'PUT' \\\r\n  'http://localhost:8080/tasks/curl%20-X%20%27GET%27%20%5C%20%20%20%27http%3A%2F%2Flocalhost%3A8080%2Ftasks%2F4555533f-e8ac-47f1-a248-5b1d59de94e8%27%20%5C%20%20%20-H%20%27accept%3A%20application%2Fjson%27' \\\r\n  -H 'accept: */*' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"title\": \"string\",\r\n  \"status\": \"Pending\"\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteById",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/tasks/4555533f-e8ac-47f1-a248-5b1d59de94e8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tasks",
+						"4555533f-e8ac-47f1-a248-5b1d59de94e8"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'http://localhost:8080/tasks/4555533f-e8ac-47f1-a248-5b1d59de94e8' \\\r\n  -H 'accept: */*'"
+			},
+			"response": []
+		}
+	]
+}
