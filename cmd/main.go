@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"task_management_system/internal/handler"
 	"task_management_system/internal/repository"
 	"task_management_system/internal/service"
@@ -11,7 +12,10 @@ import (
 
 func main() {
 
-	postgresConn := db.InitPostgres()
+	postgresConn, err := db.InitPostgres()
+	if err != nil {
+		log.Fatalf("Unable to start service due to DB error: %v", err)
+	}
 
 	taskRepo := repository.NewTaskRepository(postgresConn)
 	taskService := service.NewTaskService(taskRepo)
